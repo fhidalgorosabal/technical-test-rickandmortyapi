@@ -12,6 +12,7 @@ import { Character } from '../../interfaces/character.interface';
 import { SearchFields } from '../../interfaces/search.interface';
 import { CharacterSearchComponent } from '../../components/character-search/character-search.component';
 import { CharacterTableComponent } from '../../components/character-table/character-table.component';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-character',
@@ -26,6 +27,7 @@ import { CharacterTableComponent } from '../../components/character-table/charac
     MatCardModule,
     CharacterSearchComponent,
     CharacterTableComponent,
+    FooterComponent,
   ],
   templateUrl: './character.component.html',
   styleUrl: './character.component.scss',

@@ -1,0 +1,18 @@
+<div class="footer-totals">
+  <div class="totals-section">
+    <h4>Totales por especie</h4>
+    <ul>
+      @for (key of (speciesTotals | keyvalue); track key) {
+      <li>{{ key.key }}: {{ key.value }}</li>
+      }
+    </ul>
+  </div>
+  <div class="totals-section">
+    <h4>Totales por tipo</h4>
+    <ul>
+      @for (key of (typeTotals | keyvalue); track key) {
+      <li>{{ key.key }}: {{ key.value }}</li>
+      }
+    </ul>
+  </div>
+</div>
