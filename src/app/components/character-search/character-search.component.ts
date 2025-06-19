@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchFields } from '../../interfaces/search.interface';
+import { AutoFocusDirective } from '../../directives/auto-focus.directive';
 
 @Component({
   selector: 'app-character-search',
@@ -17,6 +18,7 @@ import { SearchFields } from '../../interfaces/search.interface';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    AutoFocusDirective,
   ],
   templateUrl: './character-search.component.html',
   styleUrl: './character-serch.component.scss',

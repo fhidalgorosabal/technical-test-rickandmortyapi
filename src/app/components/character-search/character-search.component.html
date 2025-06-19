@@ -2,7 +2,12 @@
   <div class="search-fields">
     <mat-form-field appearance="outline">
       <mat-label>Nombre</mat-label>
-      <input matInput [(ngModel)]="name" placeholder="Buscar por nombre" />
+      <input
+        matInput
+        [(ngModel)]="name"
+        appAutoFocus
+        placeholder="Buscar por nombre"
+      />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Status</mat-label>
