@@ -25,5 +25,5 @@ export interface CharacterGraphqlData {
 }
 
 export interface CharacterGraphqlResponse {
-  data: CharacterData;
+  data: CharacterGraphqlData;
 }
