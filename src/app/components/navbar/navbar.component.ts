@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
@@ -7,4 +7,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   imports: [MatToolbarModule],
   templateUrl: './navbar.component.html',
 })
-export class NavBarComponent {}
+export class NavBarComponent {
+  @Input() title: string = '';
+}

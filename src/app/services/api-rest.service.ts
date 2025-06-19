@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Character } from '../interfaces/character.interface';
 import { Response } from '../interfaces/response.interface';
+import { SearchFields } from '../interfaces/search.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +13,7 @@ export class ApiRestService {
 
   constructor(private http: HttpClient) {}
 
-  getCharacters(
-    filters: { name?: string; status?: string } = {}
-  ): Observable<Response<Character[]>> {
+  getCharacters(filters: SearchFields = {}): Observable<Response<Character[]>> {
     let params = new HttpParams();
     if (filters.name) {
       params = params.set('name', filters.name);

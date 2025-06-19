@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { ApiRestService } from '../../services/api-rest.service';
 import { Character } from '../../interfaces/character.interface';
@@ -10,6 +10,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { CharacterSearchComponent } from '../../components/character-search/character-search.component';
 import { CharacterTableComponent } from '../../components/character-table/character-table.component';
+import { SearchFields } from '../../interfaces/search.interface';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-character',
@@ -26,9 +28,9 @@ import { CharacterTableComponent } from '../../components/character-table/charac
     CharacterTableComponent,
   ],
   templateUrl: './character.component.html',
-  styleUrls: [],
+  styleUrl: './character.component.scss',
 })
-export class CharacterComponent implements OnInit {
+export class CharacterComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     'name',
     'status',
@@ -42,6 +44,8 @@ export class CharacterComponent implements OnInit {
   statusFilter: string = '';
   statuses: string[] = ['alive', 'dead', 'unknown'];
 
+  destroy$ = new Subject<void>();
+
   constructor(private apiRestService: ApiRestService) {}
 
   ngOnInit(): void {
@@ -54,14 +58,13 @@ export class CharacterComponent implements OnInit {
         name: this.nameFilter,
         status: this.statusFilter,
       })
-      .subscribe((data) => {
-        this.dataSource = data.results;
-      });
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => (this.dataSource = data.results));
   }
 
-  onSearch(filters: { name: string; status: string }) {
-    this.nameFilter = filters.name;
-    this.statusFilter = filters.status;
+  onSearch(filters: SearchFields) {
+    this.nameFilter = filters.name ?? '';
+    this.statusFilter = filters.status ?? '';
     this.getCharacters();
   }
 
@@ -69,5 +72,10 @@ export class CharacterComponent implements OnInit {
     this.nameFilter = '';
     this.statusFilter = '';
     this.getCharacters();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+import { SearchFields } from '../../interfaces/search.interface';
 
 @Component({
   selector: 'app-character-search',
@@ -18,9 +19,10 @@ import { CommonModule } from '@angular/common';
     MatButtonModule,
   ],
   templateUrl: './character-search.component.html',
+  styleUrl: './character-serch.component.scss',
 })
 export class CharacterSearchComponent {
-  @Output() search = new EventEmitter<{ name: string; status: string }>();
+  @Output() search = new EventEmitter<SearchFields>();
   @Output() clear = new EventEmitter<void>();
   name: string = '';
   status: string = '';
