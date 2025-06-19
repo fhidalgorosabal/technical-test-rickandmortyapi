@@ -48,7 +48,7 @@ export class CharacterTableComponent {
   getHeader(column: string): string {
     const headers: any = {
       name: 'Nombre',
-      status: 'Status',
+      status: 'Estado',
       species: 'Especie',
       type: 'Tipo',
       gender: 'Género',
