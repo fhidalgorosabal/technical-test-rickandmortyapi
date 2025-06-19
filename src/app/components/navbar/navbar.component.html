@@ -1,3 +1,8 @@
 <mat-toolbar color="primary">
   <span class="title" (click)="goToHome()"> {{ title }} </span>
+  @if (favorite$ | async; as favorite) {
+  <span class="favorite" (click)="goToFavoriteDetails(favorite.id)">
+    <p>Personaje favorito: {{ favorite.name }}</p>
+  </span>
+  }
 </mat-toolbar>

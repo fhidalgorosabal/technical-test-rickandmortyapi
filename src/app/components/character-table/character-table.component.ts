@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { setFavorite } from '../../store/favorite/favorite.actions';
 
 @Component({
   selector: 'app-character-table',
@@ -26,7 +28,11 @@ export class CharacterTableComponent {
   @Input() dataSource: Character[] = [];
   @Input() displayedColumns: string[] = [];
 
-  constructor(public datePipe: DatePipe, private router: Router) {}
+  constructor(
+    public datePipe: DatePipe,
+    private router: Router,
+    private store: Store
+  ) {}
 
   get displayedColumnsWithActions(): string[] {
     return [...this.displayedColumns, 'acciones'];
@@ -54,8 +60,8 @@ export class CharacterTableComponent {
     return (character as any)[column];
   }
 
-  addToFavorite() {
-    console.log('Add to favorite');
+  addToFavorite(character: { id: number; name: string }) {
+    this.store.dispatch(setFavorite({ character }));
   }
 
   goToDetails(character: Character) {

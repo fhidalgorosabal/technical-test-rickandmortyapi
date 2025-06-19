@@ -1,20 +1,33 @@
-import { Component, Input } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Observable } from 'rxjs';
+import { selectFavorite } from '../../store/favorite/favorite.selectors';
+import { FavoriteCharacter } from '../../interfaces/favorite.interface';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MatToolbarModule],
+  imports: [CommonModule, MatToolbarModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavBarComponent {
-  @Input() title: string = '';
+export class NavbarComponent {
+  title = 'Rick and Morty';
 
-  constructor(private router: Router) {}
+  favorite$: Observable<FavoriteCharacter | null>;
+
+  constructor(private store: Store, private router: Router) {
+    this.favorite$ = this.store.select(selectFavorite);
+  }
 
   goToHome() {
-    this.router.navigateByUrl('character');
+    this.router.navigate(['/']);
+  }
+
+  goToFavoriteDetails(id: number) {
+    this.router.navigate(['/character', id]);
   }
 }
