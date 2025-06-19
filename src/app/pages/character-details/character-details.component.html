@@ -9,7 +9,7 @@
   <div class="details-flex">
     <img mat-card-image [src]="d.character.image" [alt]="d.character.name" />
     <mat-card-content>
-      <p><strong>Género:</strong> {{ d.character.gender }}</p>
+      <p><strong>Género:</strong> {{ d.character.gender | genderEs }}</p>
       <p>
         <strong>Creado:</strong> {{ d.character.created | date : "medium" }}
       </p>

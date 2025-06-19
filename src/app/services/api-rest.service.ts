@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Character } from '../interfaces/character.interface';
 import { Response } from '../interfaces/response.interface';
 import { SearchFields } from '../interfaces/search.interface';

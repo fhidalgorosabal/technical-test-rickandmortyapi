@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
 import { Observable, switchMap, map, of } from 'rxjs';
 import { ApiRestService } from '../../services/api-rest.service';
 import { Character } from '../../interfaces/character.interface';
-import { LoadingComponent } from '../../components/loading/loading.component';
 import { Location, LocationInfo } from '../../interfaces/location.interface';
 import { Episode } from '../../interfaces/episode.interface';
-import { MatButtonModule } from '@angular/material/button';
+import { LoadingComponent } from '../../components/loading/loading.component';
+import { GenderEsPipe } from '../../pipes/gender-es.pipe';
 
 @Component({
   selector: 'app-character-details',
@@ -20,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatProgressSpinnerModule,
     MatButtonModule,
     LoadingComponent,
+    GenderEsPipe,
   ],
   templateUrl: './character-details.component.html',
   styleUrl: './character-details.component.scss',
