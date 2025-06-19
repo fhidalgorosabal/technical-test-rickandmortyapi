@@ -41,21 +41,6 @@ img[mat-card-image] {
   padding: 0 8px;
 }
 
-@media (max-width: 900px) {
-  mat-card {
-    max-width: 100%;
-    padding: 16px;
-  }
-  .details-flex img[mat-card-image] {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-  }
-  .details-flex {
-    gap: 16px;
-  }
-}
-
 .back-btn {
   margin-top: 20px;
 }
