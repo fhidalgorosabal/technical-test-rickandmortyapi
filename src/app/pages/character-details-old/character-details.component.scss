@@ -1,0 +1,46 @@
+mat-card {
+  max-width: 900px;
+  margin: 18px auto;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+mat-card-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+mat-card-content p {
+  margin: 8px 0;
+}
+
+img[mat-card-image] {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.details-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.details-flex img[mat-card-image] {
+  width: 380px;
+  min-width: 240px;
+  max-width: 480px;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 0;
+}
+
+.details-flex mat-card-content {
+  flex: 1;
+  padding: 0 8px;
+}
+
+.back-btn {
+  margin-top: 20px;
+}
