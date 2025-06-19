@@ -1,17 +1,77 @@
-@if (character$ | async; as c) {
+@if (characterDetails$ | async; as d) {
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{ c.name }}</mat-card-title>
-    <mat-card-subtitle>{{ c.species }} - {{ c.status }}</mat-card-subtitle>
+    <mat-card-title>{{ d.character.name }}</mat-card-title>
+    <mat-card-subtitle
+      >{{ d.character.species }} - {{ d.character.status }}</mat-card-subtitle
+    >
   </mat-card-header>
-  <img mat-card-image [src]="c.image" [alt]="c.name" />
-  <mat-card-content>
-    <p><strong>Género:</strong> {{ c.gender }}</p>
-    <p><strong>Origen:</strong> {{ c.origin.name }}</p>
-    <p><strong>Ubicación:</strong> {{ c.location.name }}</p>
-    <p><strong>Episodios:</strong> {{ c.episode.length }}</p>
-    <p><strong>Creado:</strong> {{ c.created | date : "medium" }}</p>
-  </mat-card-content>
+  <div class="details-flex">
+    <img mat-card-image [src]="d.character.image" [alt]="d.character.name" />
+    <mat-card-content>
+      <p><strong>Género:</strong> {{ d.character.gender }}</p>
+      <p>
+        <strong>Creado:</strong> {{ d.character.created | date : "medium" }}
+      </p>
+      @if (originInfo$ | async; as o) {
+      <ng-container
+        *ngTemplateOutlet="
+          locationBlock;
+          context: {
+            label: 'origen',
+            locationName: o.location?.name || d.character.origin.name,
+            resident: o.resident
+          }
+        "
+      ></ng-container>
+      } @if (locationInfo$ | async; as l) {
+      <ng-container
+        *ngTemplateOutlet="
+          locationBlock;
+          context: {
+            label: 'ubicación',
+            locationName: l.location?.name || d.character.location.name,
+            resident: l.resident
+          }
+        "
+      ></ng-container>
+      }
+      <p><strong>Episodios:</strong> {{ d.character.episode.length }}</p>
+      @if (episodeInfo$ | async; as ep) {
+      <p>
+        <strong>Un episodio:</strong>
+        @if (ep) {
+        {{ ep.name }} ({{ ep.episode }}) } @else { No hay episodios disponibles
+        para este personaje. }
+      </p>
+      }
+
+      <ng-template
+        #locationBlock
+        let-label="label"
+        let-locationName="locationName"
+        let-resident="resident"
+      >
+        <p>
+          <strong>{{ label | titlecase }}:</strong> {{ locationName }}
+        </p>
+        <p>
+          <strong>Un residente de {{ label }}:</strong>
+          @if (resident) {
+          {{ resident.name }}
+          } @else { No hay residentes en esta localización. }
+        </p>
+      </ng-template>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="goToHome()"
+        class="back-btn"
+      >
+        Volver al listado
+      </button>
+    </mat-card-content>
+  </div>
 </mat-card>
 } @else {
 <app-loading />
