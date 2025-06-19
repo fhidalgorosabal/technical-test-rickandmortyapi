@@ -1,0 +1,25 @@
+<h1>Lista de Personajes de Rick and Morty</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Status</th>
+      <th>Especie</th>
+      <th>Tipo</th>
+      <th>Género</th>
+      <th>Creado</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (character of characters; track character.id) {
+    <tr>
+      <td>{{ character.name }}</td>
+      <td>{{ character.status }}</td>
+      <td>{{ character.species }}</td>
+      <td>{{ character.type || "-" }}</td>
+      <td>{{ character.gender }}</td>
+      <td>{{ character.created | date : "medium" }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
