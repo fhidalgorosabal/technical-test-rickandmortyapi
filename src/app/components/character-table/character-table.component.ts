@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { DatePipe, CommonModule } from '@angular/common';
 import { Character } from '../../interfaces/character.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { setFavorite } from '../../store/favorite/favorite.actions';
@@ -18,6 +19,7 @@ import { setFavorite } from '../../store/favorite/favorite.actions';
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    MatPaginatorModule,
     RouterModule,
   ],
   templateUrl: './character-table.component.html',
@@ -27,6 +29,11 @@ import { setFavorite } from '../../store/favorite/favorite.actions';
 export class CharacterTableComponent {
   @Input() dataSource: Character[] = [];
   @Input() displayedColumns: string[] = [];
+  @Input() characters: any[] = [];
+  @Input() totalCharacters: number = 0;
+  @Input() pageSize: number = 20;
+  @Input() currentPage: number = 1;
+  @Output() pageChange = new EventEmitter<number>();
 
   constructor(
     public datePipe: DatePipe,
@@ -66,5 +73,9 @@ export class CharacterTableComponent {
 
   goToDetails(character: Character) {
     this.router.navigate(['/character', character.id]);
+  }
+
+  onPageChange(event: any) {
+    this.pageChange.emit(event.pageIndex + 1);
   }
 }

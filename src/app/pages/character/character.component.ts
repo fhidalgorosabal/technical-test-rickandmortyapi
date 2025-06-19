@@ -45,35 +45,43 @@ export class CharacterComponent implements OnInit, OnDestroy {
   nameFilter: string = '';
   statusFilter: string = '';
   statuses: string[] = ['alive', 'dead', 'unknown'];
+  characters: any[] = [];
+  totalCharacters = 0;
+  pageSize = 20;
+  currentPage = 1;
 
   destroy$ = new Subject<void>();
 
   constructor(private apiRestService: ApiRestService) {}
 
   ngOnInit(): void {
-    this.getCharacters();
+    this.getCharacters(this.currentPage);
   }
 
-  getCharacters(): void {
-    this.apiRestService
-      .getCharacters({
-        name: this.nameFilter,
-        status: this.statusFilter,
-      })
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => (this.dataSource = data.results));
+  getCharacters(page: number) {
+    const filters = { name: this.nameFilter, status: this.statusFilter };
+    this.apiRestService.getCharacters(filters, page).subscribe((response) => {
+      this.characters = response.results;
+      this.dataSource = response.results;
+      this.totalCharacters = response.info.count;
+      this.currentPage = page;
+    });
   }
 
   onSearch(filters: SearchFields) {
     this.nameFilter = filters.name ?? '';
     this.statusFilter = filters.status ?? '';
-    this.getCharacters();
+    this.getCharacters(1);
   }
 
   onClear() {
     this.nameFilter = '';
     this.statusFilter = '';
-    this.getCharacters();
+    this.getCharacters(1);
+  }
+
+  onPageChange(page: number) {
+    this.getCharacters(page);
   }
 
   ngOnDestroy(): void {

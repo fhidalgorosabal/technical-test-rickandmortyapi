@@ -15,7 +15,10 @@ export class ApiRestService {
 
   constructor(private http: HttpClient) {}
 
-  getCharacters(filters: SearchFields = {}): Observable<Response<Character[]>> {
+  getCharacters(
+    filters: SearchFields = {},
+    page: number = 1
+  ): Observable<Response<Character[]>> {
     let params = new HttpParams();
     if (filters.name) {
       params = params.set('name', filters.name);
@@ -23,6 +26,7 @@ export class ApiRestService {
     if (filters.status) {
       params = params.set('status', filters.status);
     }
+    params = params.set('page', page.toString());
     return this.http.get<Response<Character[]>>(`${this.baseUrl}/character`, {
       params,
     });

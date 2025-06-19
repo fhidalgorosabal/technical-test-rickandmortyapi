@@ -4,8 +4,12 @@
     (clear)="onClear()"
   ></app-character-search>
   <app-character-table
-    [dataSource]="dataSource"
+    [characters]="characters"
     [displayedColumns]="displayedColumns"
+    [totalCharacters]="totalCharacters"
+    [pageSize]="pageSize"
+    [currentPage]="currentPage"
+    (pageChange)="onPageChange($event)"
   ></app-character-table>
   <app-footer [dataSource]="dataSource"></app-footer>
 </mat-card>
