@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CharacterGraphqlResponse } from '../interfaces/character-graphql.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,9 @@ export class ApiGraphqlService {
 
   constructor(private http: HttpClient) {}
 
-  getCharacterFullDetailsById(id: number): Observable<any> {
+  getCharacterFullDetailsById(
+    id: number
+  ): Observable<CharacterGraphqlResponse> {
     const query = `{
       character(id: ${id}) {
         id
