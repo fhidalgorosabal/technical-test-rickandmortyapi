@@ -54,6 +54,10 @@ export class CharacterTableComponent {
     return (character as any)[column];
   }
 
+  addToFavorite() {
+    console.log('Add to favorite');
+  }
+
   goToDetails(character: Character) {
     this.router.navigate(['/character', character.id]);
   }

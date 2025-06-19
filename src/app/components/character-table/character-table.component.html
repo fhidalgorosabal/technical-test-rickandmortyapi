@@ -16,15 +16,16 @@
           color="warn"
           aria-label="Favorito"
           matTooltip="Favoritos"
+          (click)="addToFavorite()"
         >
           <mat-icon>favorite</mat-icon>
         </button>
         <button
           mat-icon-button
           color="primary"
-          (click)="goToDetails(character)"
           aria-label="Ver detalles"
           matTooltip="Detalles"
+          (click)="goToDetails(character)"
         >
           <mat-icon>visibility</mat-icon>
         </button>

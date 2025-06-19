@@ -1,21 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Observable, tap } from 'rxjs';
 import { ApiRestService } from '../../services/api-rest.service';
 import { Character } from '../../interfaces/character.interface';
-import { MatCardModule } from '@angular/material/card';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-character-details',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    LoadingComponent,
+  ],
   templateUrl: './character-details.component.html',
   styleUrl: './character-details.component.scss',
 })
 export class CharacterDetailsComponent implements OnInit {
-  character: Character | null = null;
-  loading = true;
-  error: string | null = null;
+  character$ = new Observable<Character | null>();
 
   constructor(
     private route: ActivatedRoute,
@@ -24,21 +30,10 @@ export class CharacterDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (!id) {
-      this.error = 'ID de personaje inválido.';
-      this.loading = false;
-      return;
-    }
-    this.loading = true;
-    this.apiRestService.getCharacterById(id).subscribe({
-      next: (character) => {
-        this.character = character;
-        this.loading = false;
-      },
-      error: () => {
-        this.error = 'No se pudo cargar el personaje.';
-        this.loading = false;
-      },
-    });
+    if (!id) return;
+
+    this.character$ = this.apiRestService
+      .getCharacterById(id)
+      .pipe(tap((character) => character));
   }
 }
