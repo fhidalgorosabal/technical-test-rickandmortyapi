@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Character } from '../interfaces/character.interface';
 import { Response } from '../interfaces/response.interface';
@@ -12,7 +12,18 @@ export class ApiRestService {
 
   constructor(private http: HttpClient) {}
 
-  getCharacters(): Observable<Response<Character[]>> {
-    return this.http.get<Response<Character[]>>(`${this.baseUrl}/character`);
+  getCharacters(
+    filters: { name?: string; status?: string } = {}
+  ): Observable<Response<Character[]>> {
+    let params = new HttpParams();
+    if (filters.name) {
+      params = params.set('name', filters.name);
+    }
+    if (filters.status) {
+      params = params.set('status', filters.status);
+    }
+    return this.http.get<Response<Character[]>>(`${this.baseUrl}/character`, {
+      params,
+    });
   }
 }

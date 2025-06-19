@@ -1,0 +1,39 @@
+<div
+  style="
+    margin-bottom: 16px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  "
+>
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input matInput [(ngModel)]="name" placeholder="Buscar por nombre" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="status">
+      <mat-option value="">Todos</mat-option>
+      @for (s of statuses; track s) {
+      <mat-option [value]="s">{{ s }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    style="margin-left: auto; margin-bottom: 20px"
+    (click)="onSearch()"
+  >
+    Buscar
+  </button>
+  <button
+    mat-raised-button
+    color="basic"
+    style="margin-bottom: 20px"
+    (click)="onClear()"
+  >
+    Limpiar
+  </button>
+</div>
