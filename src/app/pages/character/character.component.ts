@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
+import { ApiRestService } from '../../services/api-rest.service';
+import { Character } from '../../interfaces/character.interface';
 
 @Component({
   selector: 'app-character',
@@ -11,7 +12,6 @@ import { MatTableModule } from '@angular/material/table';
   styleUrls: [],
 })
 export class CharacterComponent implements OnInit {
-  characters: any[] = [];
   displayedColumns: string[] = [
     'name',
     'status',
@@ -20,16 +20,13 @@ export class CharacterComponent implements OnInit {
     'gender',
     'created',
   ];
-  dataSource: any[] = [];
+  dataSource: Character[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private apiRestService: ApiRestService) {}
 
   ngOnInit(): void {
-    this.http
-      .get<any>('https://rickandmortyapi.com/api/character')
-      .subscribe((data) => {
-        this.characters = data.results;
-        this.dataSource = data.results;
-      });
+    this.apiRestService.getCharacters().subscribe((data) => {
+      this.dataSource = data.results;
+    });
   }
 }
