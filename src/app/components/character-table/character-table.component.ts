@@ -1,20 +1,36 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { DatePipe, CommonModule } from '@angular/common';
 import { Character } from '../../interfaces/character.interface';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-character-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    RouterModule,
+  ],
   templateUrl: './character-table.component.html',
+  styleUrl: './character-table.component.scss',
   providers: [DatePipe],
 })
 export class CharacterTableComponent {
   @Input() dataSource: Character[] = [];
   @Input() displayedColumns: string[] = [];
 
-  constructor(public datePipe: DatePipe) {}
+  constructor(public datePipe: DatePipe, private router: Router) {}
+
+  get displayedColumnsWithActions(): string[] {
+    return [...this.displayedColumns, 'acciones'];
+  }
 
   getHeader(column: string): string {
     const headers: any = {
@@ -36,5 +52,9 @@ export class CharacterTableComponent {
       return character.type || '-';
     }
     return (character as any)[column];
+  }
+
+  goToDetails(character: Character) {
+    this.router.navigate(['/character', character.id]);
   }
 }

@@ -1,0 +1,16 @@
+.acciones-header {
+  text-align: center;
+}
+
+td.mat-cell.acciones-cell-parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.acciones-cell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}

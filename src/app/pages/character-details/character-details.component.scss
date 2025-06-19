@@ -1,0 +1,21 @@
+mat-card {
+  max-width: 400px;
+  margin: 32px auto;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+mat-card-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+mat-card-content p {
+  margin: 8px 0;
+}
+
+img[mat-card-image] {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}

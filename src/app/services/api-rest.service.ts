@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Character } from '../interfaces/character.interface';
 import { Response } from '../interfaces/response.interface';
 import { SearchFields } from '../interfaces/search.interface';
+import { Location } from '../interfaces/location.interface';
+import { Episode } from '../interfaces/episode.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +26,17 @@ export class ApiRestService {
     return this.http.get<Response<Character[]>>(`${this.baseUrl}/character`, {
       params,
     });
+  }
+
+  getCharacterById(id: number): Observable<Character> {
+    return this.http.get<Character>(`${this.baseUrl}/character/${id}`);
+  }
+
+  getLocationByUrl(url: string): Observable<Location> {
+    return this.http.get<Location>(url);
+  }
+
+  getEpisodeByUrl(url: string): Observable<Episode> {
+    return this.http.get<Episode>(url);
   }
 }

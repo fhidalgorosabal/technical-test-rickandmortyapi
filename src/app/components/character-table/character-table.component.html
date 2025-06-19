@@ -7,6 +7,30 @@
     </td>
   </ng-container>
   }
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef class="acciones-header">Acciones</th>
+    <td mat-cell *matCellDef="let character" class="acciones-cell-parent">
+      <span class="acciones-cell">
+        <button
+          mat-icon-button
+          color="warn"
+          aria-label="Favorito"
+          matTooltip="Favoritos"
+        >
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="goToDetails(character)"
+          aria-label="Ver detalles"
+          matTooltip="Detalles"
+        >
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </span>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumnsWithActions"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumnsWithActions"></tr>
 </table>
