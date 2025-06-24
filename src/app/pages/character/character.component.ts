@@ -60,12 +60,15 @@ export class CharacterComponent implements OnInit, OnDestroy {
 
   getCharacters(page: number) {
     const filters = { name: this.nameFilter, status: this.statusFilter };
-    this.apiRestService.getCharacters(filters, page).subscribe((response) => {
-      this.characters = response.results;
-      this.dataSource = response.results;
-      this.totalCharacters = response.info.count;
-      this.currentPage = page;
-    });
+    this.apiRestService
+      .getCharacters(filters, page)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((response) => {
+        this.characters = response.results;
+        this.dataSource = response.results;
+        this.totalCharacters = response.info.count;
+        this.currentPage = page;
+      });
   }
 
   onSearch(filters: SearchFields) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 
@@ -12,5 +12,6 @@ import { CommonModule } from '@angular/common';
     </div>
   `,
   styleUrls: ['./loading.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoadingComponent {}

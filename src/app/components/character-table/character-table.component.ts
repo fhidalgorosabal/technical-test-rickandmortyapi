@@ -1,4 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { DatePipe, CommonModule } from '@angular/common';
 import { Character } from '../../interfaces/character.interface';
@@ -25,6 +31,7 @@ import { setFavorite } from '../../store/favorite/favorite.actions';
   templateUrl: './character-table.component.html',
   styleUrl: './character-table.component.scss',
   providers: [DatePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterTableComponent {
   @Input() dataSource: Character[] = [];

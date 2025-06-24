@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Character } from '../../interfaces/character.interface';
 
@@ -8,6 +8,7 @@ import { Character } from '../../interfaces/character.interface';
   imports: [CommonModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {
   @Input() dataSource: Character[] = [];

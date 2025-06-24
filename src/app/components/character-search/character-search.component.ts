@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,6 +27,7 @@ import { AutoFocusDirective } from '../../directives/auto-focus.directive';
   ],
   templateUrl: './character-search.component.html',
   styleUrl: './character-serch.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterSearchComponent {
   @Output() search = new EventEmitter<SearchFields>();
