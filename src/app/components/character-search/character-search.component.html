@@ -1,17 +1,17 @@
-<div class="search">
+<div class="search" [formGroup]="searchForm">
   <div class="search-fields">
     <mat-form-field appearance="outline">
       <mat-label>Nombre</mat-label>
       <input
         matInput
-        [(ngModel)]="name"
+        formControlName="name"
         appAutoFocus
         placeholder="Buscar por nombre"
       />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Status</mat-label>
-      <mat-select [(ngModel)]="status">
+      <mat-select formControlName="status">
         <mat-option value="">Todos</mat-option>
         @for (s of statuses; track s) {
         <mat-option [value]="s">{{ s }}</mat-option>

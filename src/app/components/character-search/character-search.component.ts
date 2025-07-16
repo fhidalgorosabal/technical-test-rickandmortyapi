@@ -5,7 +5,7 @@ import {
   Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -18,7 +18,7 @@ import { AutoFocusDirective } from '../../directives/auto-focus.directive';
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -32,17 +32,25 @@ import { AutoFocusDirective } from '../../directives/auto-focus.directive';
 export class CharacterSearchComponent {
   @Output() search = new EventEmitter<SearchFields>();
   @Output() clear = new EventEmitter<void>();
-  name: string = '';
-  status: string = '';
+
+  searchForm: FormGroup;
   statuses: string[] = ['alive', 'dead', 'unknown'];
 
+  constructor(private fb: FormBuilder) {
+    this.searchForm = this.fb.group({
+      name: [''],
+      status: [''],
+    });
+  }
+
   onSearch() {
-    this.search.emit({ name: this.name, status: this.status });
+    if (this.searchForm.valid) {
+      this.search.emit(this.searchForm.value);
+    }
   }
 
   onClear() {
-    this.name = '';
-    this.status = '';
+    this.searchForm.reset();
     this.clear.emit();
   }
 }
