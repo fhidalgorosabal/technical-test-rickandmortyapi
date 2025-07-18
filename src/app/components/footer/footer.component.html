@@ -2,7 +2,7 @@
   <div class="totals-section">
     <h4>Totales por especie</h4>
     <ul>
-      @for (key of (speciesTotals | keyvalue); track key) {
+      @for (key of (speciesTotals() | keyvalue); track key) {
       <li>{{ key.key }}: {{ key.value }}</li>
       }
     </ul>
@@ -10,7 +10,7 @@
   <div class="totals-section">
     <h4>Totales por tipo</h4>
     <ul>
-      @for (key of (typeTotals | keyvalue); track key) {
+      @for (key of (typeTotals() | keyvalue); track key) {
       <li>{{ key.key }}: {{ key.value }}</li>
       }
     </ul>

@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  computed,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Character } from '../../interfaces/character.interface';
 
@@ -11,20 +17,24 @@ import { Character } from '../../interfaces/character.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {
-  @Input() dataSource: Character[] = [];
+  @Input() set dataSource(value: Character[]) {
+    this._dataSource.set(value);
+  }
 
-  get speciesTotals(): { [key: string]: number } {
-    return this.dataSource.reduce((acc, curr) => {
+  private _dataSource = signal<Character[]>([]);
+
+  speciesTotals = computed(() => {
+    return this._dataSource().reduce((acc, curr) => {
       acc[curr.species] = (acc[curr.species] || 0) + 1;
       return acc;
     }, {} as { [key: string]: number });
-  }
+  });
 
-  get typeTotals(): { [key: string]: number } {
-    return this.dataSource.reduce((acc, curr) => {
+  typeTotals = computed(() => {
+    return this._dataSource().reduce((acc, curr) => {
       const type = curr.type || 'Sin tipo';
       acc[type] = (acc[type] || 0) + 1;
       return acc;
     }, {} as { [key: string]: number });
-  }
+  });
 }
